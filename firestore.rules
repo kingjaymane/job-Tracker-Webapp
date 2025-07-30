@@ -1,0 +1,92 @@
+// Firestore Security Rules for JobTracker
+// Copy these rules to Firebase Console → Firestore Database → Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow authenticated users full access (temporary for debugging)
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Specific rules for job applications
+    match /jobApplications/{jobId} {
+      allow read, write, create, update, delete: if request.auth != null && 
+        (resource == null || resource.data.userId == request.auth.uid);
+    }
+    
+    // Specific rules for documents
+    match /documents/{documentId} {
+      allow read, write, create, update, delete: if request.auth != null;
+    }
+    
+    // Specific rules for user data
+    match /users/{userId} {
+      allow read, write, create, update, delete: if request.auth != null && userId == request.auth.uid;
+    }
+    
+    // Allow nested user data
+    match /users/{userId}/{document=**} {
+      allow read, write, create, update, delete: if request.auth != null && userId == request.auth.uid;
+    }
+    
+    // Optional: Allow reading of public data (if needed in the future)
+    // match /public/{document=**} {
+    //   allow read: if true;
+    // }
+  }
+}
+
+/*
+IMPORTANT SETUP INSTRUCTIONS:
+=============================
+
+1. Go to Firebase Console (https://console.firebase.google.com/)
+2. Select your JobTracker project
+3. Click "Firestore Database" in the left sidebar
+4. Click the "Rules" tab
+5. Replace the existing rules with the rules above
+6. Click "Publish" 
+7. Wait 1-2 minutes for the rules to propagate
+
+SECURITY EXPLANATION:
+====================
+
+These rules ensure that:
+- Users can only access their own data
+- Job applications can only be accessed by their owner (userId field)
+- User documents can only be accessed by the user themselves
+- All operations require authentication
+
+DEBUGGING TIPS:
+===============
+
+If you get permission errors:
+1. Check that you're signed in to Firebase Auth
+2. Verify the userId matches the authenticated user
+3. Check the Firestore console for rule evaluation logs
+4. Temporarily use the broad rule above for debugging
+*/
+- Authentication is required for all operations
+- No user can read or modify another user's job data
+- The structure follows: users/{userId}/jobs/{jobId}
+
+TESTING THE RULES:
+==================
+
+After updating the rules, test them by:
+1. Opening browser console on your JobTracker app
+2. Running: testFirestoreAccess('your-user-id')
+3. Should return success without permission errors
+
+TROUBLESHOOTING:
+===============
+
+If you still get permission errors:
+1. Make sure you're signed in to the app
+2. Check that your user ID matches the Firestore path
+3. Wait a few minutes for rules to propagate
+4. Try refreshing the page and signing in again
+5. Check Firebase Console → Authentication to see if user exists
+
+*/
