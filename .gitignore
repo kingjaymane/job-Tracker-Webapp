@@ -35,8 +35,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# documentation files
+# test files
+test-*.js
+
+# documentation files (exclude all except README.md)
 *.md
+!README.md
 *.txt
 COMPREHENSIVE_OVERVIEW.txt
 DATABASE_FIX_SUMMARY.md
@@ -46,3 +50,9 @@ EMAIL_INTEGRATION_README.md
 FIREBASE_ANALYSIS.md
 JOB_CLEANUP_GUIDE.md
 TECHNICAL_INTERVIEW_GUIDE.md
+AI_RECATEGORIZATION_GUIDE.md
+LINKEDIN_POST.md
+PM_INTERVIEW_CHEAT_SHEET.md
+PROJECT_REVIEW_GUIDE.md
+RESUME_ANALYZER_GUIDE.md
+project/firestore-rules-temp.rules

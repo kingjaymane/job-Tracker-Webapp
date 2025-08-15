@@ -18,6 +18,7 @@ import { AnalyticsDashboard } from '@/components/analytics-dashboard';
 import { JobMatching } from '@/components/job-matching';
 import { DocumentManagement } from '@/components/document-management';
 import { ResumeAnalyzer } from '@/components/resume-analyzer';
+import InterviewPrep from '@/components/interview-prep';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -766,6 +767,10 @@ export default function Home() {
               <div className="p-6">
                 <ResumeAnalyzer />
               </div>
+            )}
+
+            {currentView === 'interview-prep' && (
+              <InterviewPrep />
             )}
           </main>
         </div>

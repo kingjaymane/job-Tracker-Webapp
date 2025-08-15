@@ -13,7 +13,8 @@ import {
   BarChart3,
   Brain,
   Folder,
-  FileSearch
+  FileSearch,
+  MessageSquare
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -32,6 +33,7 @@ export function Sidebar({ collapsed, onToggle, onAddJob, activeView = 'dashboard
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'job-matching', label: 'AI Job Matching', icon: Brain },
     { id: 'resume-analyzer', label: 'Resume Analyzer', icon: FileSearch },
+    { id: 'interview-prep', label: 'Interview Prep', icon: MessageSquare },
     { id: 'documents', label: 'Documents', icon: Folder },
     { id: 'email', label: 'Email Integration', icon: Mail },
     { id: 'calendar', label: 'Calendar', icon: Calendar },
